@@ -10,6 +10,7 @@
 	<property name="testbuild.dir" value="src/test/classes"/>
 	<property name="name" value="springapp"/>
 	<property name="build.sysclasspath" value="last"/>
+	
 	<path id="master-classpath">
 		<fileset dir="${web.dir}/WEB-INF/lib">
 			<include name="*.jar"/>
@@ -166,6 +167,21 @@
                  password="${tomcat.manager.password}"/>
 	</target>
 
+	<target name="clean" description="Clean output directories">
+        <delete>
+            <fileset dir="${build.dir}">
+                <include name="**/*.class"/>
+            </fileset>
+        </delete>
+    </target>
+
+    <target name="undeploy" description="Un-Deploy application">
+        <delete>
+            <fileset dir="${deploy.path}/${name}">
+                <include name="**/*.*"/>
+            </fileset>
+        </delete>
+    </target>
 	<!-- End Tomcat tasks -->
 
 	<target name="usage">

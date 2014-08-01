@@ -18,7 +18,7 @@
 	<classpathentry kind="lib" path="/home/Developer/spring 3.2.1 jars/spring-expression-3.2.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="/home/Developer/spring 3.2.1 jars/spring-core-3.2.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="/home/Developer/spring 3.2.1 jars/spring-context-support-3.2.1.RELEASE.jar"/>
-	<classpathentry kind="lib" path="/home/Developer/spring 3.2.1 jars/spring-context-3.2.1.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/home/Developer/spring 3.2.1 jars/spring-context-3.2.1.RELEASE.jar" sourcepath="/home/Developer/.m2/repository/org/springframework/spring-context/3.2.1.RELEASE/spring-context-3.2.1.RELEASE-sources.jar"/>
 	<classpathentry kind="lib" path="/home/Developer/spring 3.2.1 jars/spring-build-src-3.2.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="/home/Developer/spring 3.2.1 jars/spring-beans-3.2.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="/home/Developer/spring 3.2.1 jars/spring-aspects-3.2.1.RELEASE.jar"/>
@@ -27,5 +27,5 @@
 	<classpathentry kind="lib" path="/home/Developer/spring 3.2.1 jars/jstl-1.2.jar"/>
 	<classpathentry kind="lib" path="/home/Developer/spring 3.2.1 jars/commons-logging-1.2.jar"/>
 	<classpathentry kind="lib" path="/usr/share/tomcat6/lib/tomcat6-servlet-2.5-api-6.0.24.jar"/>
-	<classpathentry kind="output" path="webapp/WEB-INF/classes"/>
+	<classpathentry kind="output" path="webapp/WEB-INF/build"/>
 </classpath>
