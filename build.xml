@@ -135,6 +135,7 @@
   <property name="jsp.dir" 				value="${src.dir}/jsp"/>
   <property name="config.dir" 			value="${src.dir}/config"/>
   <property name="war.dir" 			    value="${basedir}/war"/>
+  <property name="testbuild.dir" 		value="${src.dir}/test/classes"/>
 
 
 <!-- ==================== External Dependencies =========================== -->
@@ -191,11 +192,33 @@
     <fileset dir="${appserver.home}/bin">
       <include name="*.jar"/>
     </fileset>
-    <pathelement location="${appserver.lib}"/>
     <fileset dir="${appserver.home}/lib">
       <include name="*.jar"/>
     </fileset>
+  	<pathelement path="${build.dir}"/>
   </path>
+	
+	
+  <path id="test.classpath">
+
+    <!-- Include all JAR files that will be included in /WEB-INF/lib -->
+    <!-- *** CUSTOMIZE HERE AS REQUIRED BY YOUR APPLICATION *** -->
+<!--
+    <pathelement location="${foo.jar}"/>
+-->
+    <fileset dir="${spring.3.2.1.jars}">
+      <include name="*.jar"/>
+    </fileset>
+  	
+    <!-- Include all elements that Tomcat exposes to applications -->
+    <fileset dir="${appserver.home}/bin">
+      <include name="*.jar"/>
+    </fileset>
+    <fileset dir="${appserver.home}/lib">
+      <include name="*.jar"/>
+    </fileset>
+  	<pathelement path="${testbuild.dir}"/>
+  </path>	
 <!-- ================== Custom Ant Task Definitions ======================= -->
 
 
@@ -256,6 +279,7 @@
 		<echo message="dist 		--> creates a binary distribution"/>
 		<echo message="deploy 		--> Deploy application as a WAR file"/>
 		<echo message="reload    	--> Reload application in Tomcat"/>
+		<echo message="undeploy    	--> Undeploy application in Tomcat"/>
 		<echo message="start     	--> Start Tomcat application"/>
 		<echo message="stop      	--> Stop Tomcat application"/>
 		<echo message="restart      --> Restart Tomcat application"/>
@@ -305,7 +329,7 @@
 
 -->
 
-  <target name="compile" depends="prepare"
+  <target name="compile" depends="prepare, tests"
    description="Compile Java sources">
 
     <!-- Compile Java classes as necessary -->
@@ -325,6 +349,42 @@
 	</war>  	
   </target>
 
+<!-- ==================== Test Target ===================================== -->
+	<target name="tests" description="Compile test tree java files">
+		<delete dir="${testbuild.dir}"/>
+		<mkdir dir="${testbuild.dir}"/>
+		<javac destdir="${testbuild.dir}" source="1.6" target="1.6" debug="true"
+            deprecation="false" optimize="false" failonerror="true">
+			<src path="${src.dir}"/>
+			<classpath refid="test.classpath"/>
+		</javac>
+		<junit printsummary="on"
+            fork="false"
+            haltonfailure="false"
+            failureproperty="tests.failed"
+            showoutput="true">
+			<classpath refid="test.classpath"/>
+			<formatter type="brief" usefile="false"/>
+
+			<batchtest>
+				<fileset dir="${testbuild.dir}">
+					<include name="**/*Tests.*"/>
+				</fileset>
+			</batchtest>
+
+		</junit>
+
+		<fail if="tests.failed">
+            tests.failed=${tests.failed}
+            ***********************************************************
+            ***********************************************************
+            ****  One or more tests failed!  Check the output ...  ****
+            ***********************************************************
+            ***********************************************************
+        </fail>	
+	</target>	
+	
+	
 <!-- ==================== Dist Target ===================================== -->
 
 
@@ -511,7 +571,7 @@
 
 -->
 
-  <target name="remove"
+  <target name="undeploy"
    description="Remove application on servlet container">
 
     <undeploy url="${manager.url}"
