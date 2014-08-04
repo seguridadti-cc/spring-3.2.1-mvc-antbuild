@@ -6,7 +6,7 @@ import java.util.Map;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.springapp.domain.Product;
-import com.springapp.domain.ProductManager;
+import com.springapp.service.ProductManager;
 import com.springapp.service.SimpleProductManager;
 import com.springapp.web.InventoryController;
 

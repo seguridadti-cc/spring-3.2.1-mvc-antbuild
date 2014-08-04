@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.springapp.domain.ProductManager;
+import com.springapp.service.ProductManager;
 
 import java.util.Date;
 import java.util.HashMap;
