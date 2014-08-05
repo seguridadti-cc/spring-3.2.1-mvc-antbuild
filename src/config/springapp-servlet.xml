@@ -8,13 +8,16 @@
   <!-- the application context definition for the springapp DispatcherServlet -->
 
     <bean id="productManager" class="com.springapp.service.SimpleProductManager">
-        <property name="products">
-            <list>
-                <ref bean="product1"/>
-                <ref bean="product2"/>
-                <ref bean="product3"/>
-            </list>
-        </property>
+         <property name="productDAO" value="com.springapp.repository.JdbcProductDao">
+            
+        </property>   
+<!--         <property name="products"> -->
+<!--             <list> -->
+<!--                 <ref bean="product1"/> -->
+<!--                 <ref bean="product2"/> -->
+<!--                 <ref bean="product3"/> -->
+<!--             </list> -->
+<!--         </property> -->
     </bean>
 
     <bean id="product1" class="com.springapp.domain.Product">
@@ -37,7 +40,7 @@
     </bean>
 
     <bean name="/hello.htm" class="com.springapp.web.InventoryController">
-        <property name="productManager" ref="productManager"/>
+<!--         <property name="productManager" ref="productManager"/> -->
     </bean>
     
     <bean name="/priceincrease.htm" class="com.springapp.web.PriceIncreaseFormController">

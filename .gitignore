@@ -2,3 +2,5 @@ war/
 WEB-INF/
 src/test/classes/
 build.xml.bak
+db/*
+!db/*.sql

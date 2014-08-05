@@ -47,10 +47,10 @@
 
 <project name="springapp" default="usage" basedir=".">
 
-<!-- ===================== Property Definitions =========================== -->
+	<!-- ===================== Property Definitions =========================== -->
 
 
-<!--
+	<!--
 
   Each of the following properties are used in the build script.
   Values for these properties are set by the first place they are
@@ -74,14 +74,14 @@
 
 -->
 
-  <property file="build.properties"/>
-  <property file="${user.home}/build.properties"/>
+	<property file="build.properties"/>
+	<property file="${user.home}/build.properties"/>
 
 
-<!-- ==================== File and Directory Names ======================== -->
+	<!-- ==================== File and Directory Names ======================== -->
 
 
-<!--
+	<!--
 
   These properties generally define file and directory names (or paths) that
   affect where the build process stores its outputs.
@@ -122,26 +122,28 @@
 
 -->
 
-  <property name="app.name"      		value="springapp"/>
-  <property name="app.path"      		value="/${app.name}"/>
-  <property name="app.version"   		value="0.1-dev"/>
-  <property name="build.home"    		value="${basedir}/webapp"/>
-  <property name="dist.home"     		value="${basedir}/dist"/>
-  <property name="docs.home"     		value="${basedir}/docs"/>
-  <property name="src.dir"      		value="${basedir}/src/"/>
-  <property name="src.main"      		value="${basedir}/src/main"/>
-  <property name="spring.3.2.1.jars"   	value="/home/Developer/spring3.2.1 jars"/>
-  <property name="resources.dir" 		value="${src.dir}/resources"/>
-  <property name="jsp.dir" 				value="${src.dir}/jsp"/>
-  <property name="config.dir" 			value="${src.dir}/config"/>
-  <property name="war.dir" 			    value="${basedir}/war"/>
-  <property name="testbuild.dir" 		value="${src.dir}/test/classes"/>
+	<property name="app.name"      		value="springapp"/>
+	<property name="app.path"      		value="/${app.name}"/>
+	<property name="app.version"   		value="0.1-dev"/>
+	<property name="build.home"    		value="${basedir}/webapp"/>
+	<property name="dist.home"     		value="${basedir}/dist"/>
+	<property name="docs.home"     		value="${basedir}/docs"/>
+	<property name="src.dir"      		value="${basedir}/src/"/>
+	<property name="src.main"      		value="${basedir}/src/main"/>
+	<property name="spring.3.2.1.jars"   	value="/home/Developer/spring-3.2.1-jars"/>
+	<property name="resources.dir" 		value="${src.dir}/resources"/>
+	<property name="jsp.dir" 				value="${src.dir}/jsp"/>
+	<property name="config.dir" 			value="${src.dir}/config"/>
+	<property name="war.dir" 			    value="${basedir}/war"/>
+	<property name="test.dir" 			value="${src.dir}/test/"/>
+	<property name="testbuild.dir" 		value="${test.dir}/classes"/>
+
+	
+
+	<!-- ==================== External Dependencies =========================== -->
 
 
-<!-- ==================== External Dependencies =========================== -->
-
-
-<!--
+	<!--
 
   Use property values to define the locations of external JAR files on which
   your application will depend.  In general, these values will be used for
@@ -157,72 +159,72 @@
 
 -->
 
-<!-- Dummy external dependency -->
-<!--
+	<!-- Dummy external dependency -->
+	<!--
   <property name="foo.jar"
            value="/path/to/foo.jar"/>
 -->
 
 
-<!-- ==================== Compilation Classpath =========================== -->
+	<!-- ==================== Compilation Classpath =========================== -->
 
-<!--
+	<!--
 
   Rather than relying on the CLASSPATH environment variable, Ant includes
   features that makes it easy to dynamically construct the classpath you
   need for each compilation.  The example below constructs the compile
   classpath to include the servlet.jar file, as well as the other components
   that Tomcat makes available to web applications automatically, plus anything
-  that you explicitly added.
+  that you explicitly added.compileTests
 
 -->
 
-  <path id="compile.classpath">
+	<path id="compile.classpath">
 
-    <!-- Include all JAR files that will be included in /WEB-INF/lib -->
-    <!-- *** CUSTOMIZE HERE AS REQUIRED BY YOUR APPLICATION *** -->
-<!--
+		<!-- Include all JAR files that will be included in /WEB-INF/lib -->
+		<!-- *** CUSTOMIZE HERE AS REQUIRED BY YOUR APPLICATION *** -->
+		<!--
     <pathelement location="${foo.jar}"/>
 -->
-    <fileset dir="${spring.3.2.1.jars}">
-      <include name="*.jar"/>
-    </fileset>
-  	
-    <!-- Include all elements that Tomcat exposes to applications -->
-    <fileset dir="${appserver.home}/bin">
-      <include name="*.jar"/>
-    </fileset>
-    <fileset dir="${appserver.home}/lib">
-      <include name="*.jar"/>
-    </fileset>
-  	<pathelement path="${build.dir}"/>
-  </path>
-	
-	
-  <path id="test.classpath">
+		<fileset dir="${spring.3.2.1.jars}">
+			<include name="*.jar"/>
+		</fileset>
 
-    <!-- Include all JAR files that will be included in /WEB-INF/lib -->
-    <!-- *** CUSTOMIZE HERE AS REQUIRED BY YOUR APPLICATION *** -->
-<!--
+		<!-- Include all elements that Tomcat exposes to applications -->
+		<fileset dir="${appserver.home}/bin">
+			<include name="*.jar"/>
+		</fileset>
+		<fileset dir="${appserver.home}/lib">
+			<include name="*.jar"/>
+		</fileset>
+		<pathelement path="${build.dir}"/>
+	</path>
+
+
+	<path id="test.classpath">
+
+		<!-- Include all JAR files that will be included in /WEB-INF/lib -->
+		<!-- *** CUSTOMIZE HERE AS REQUIRED BY YOUR APPLICATION *** -->
+		<!--
     <pathelement location="${foo.jar}"/>
 -->
-    <fileset dir="${spring.3.2.1.jars}">
-      <include name="*.jar"/>
-    </fileset>
-  	
-    <!-- Include all elements that Tomcat exposes to applications -->
-    <fileset dir="${appserver.home}/bin">
-      <include name="*.jar"/>
-    </fileset>
-    <fileset dir="${appserver.home}/lib">
-      <include name="*.jar"/>
-    </fileset>
-  	<pathelement path="${testbuild.dir}"/>
-  </path>	
-<!-- ================== Custom Ant Task Definitions ======================= -->
+		<fileset dir="${spring.3.2.1.jars}">
+			<include name="*.jar"/>
+		</fileset>
+
+		<!-- Include all elements that TcompileTestsomcat exposes to applications -->
+		<fileset dir="${appserver.home}/bin">
+			<include name="*.jar"/>
+		</fileset>
+		<fileset dir="${appserver.home}/lib">
+			<include name="*.jar"/>
+		</fileset>
+		<pathelement path="${testbuild.dir}"/>
+	</path>
+	<!-- ================== Custom Ant Task Definitions ======================= -->
 
 
-<!--
+	<!--
 
   These properties define custom tasks for the Ant build tool that interact
   with the "/manager" web application installed with Tomcat 6.  Before they
@@ -241,13 +243,13 @@
 
 -->
 
-  <taskdef resource="org/apache/catalina/ant/catalina.tasks"
+	<taskdef resource="org/apache/catalina/ant/catalina.tasks"
            classpathref="compile.classpath"/>
 
 
-<!--  ==================== Compilation Control Options ==================== -->
+	<!--  ==================== Compilation Control Options ==================== -->
 
-<!--
+	<!--
 
   These properties control option settings on the Javac compiler when it
   is invoked using the <javac> task.
@@ -260,67 +262,47 @@
 
 -->
 
-  <property name="compile.debug"       value="true"/>
-  <property name="compile.deprecation" value="false"/>
-  <property name="compile.optimize"    value="true"/>
+	<property name="compile.debug"       value="true"/>
+	<property name="compile.deprecation" value="false"/>
+	<property name="compile.optimize"    value="true"/>
 
 
-	<target name="usage">
-		<echo message=""/>
-		<echo message="${app.name} build file"/>
-		<echo message="-----------------------------------"/>
-		<echo message=""/>
-		<echo message="Available targets are:"/>
-		<echo message=""/>
-		<echo message="all 			--> The 'all' target is a shortcut for running 'clean/compile' target"/>
-		<echo message="clean 		--> The 'clean' removes all generated content."/>
-		<echo message="prepare 		--> Generates the directory structure for a deployment."/>
-		<echo message="compile 		--> transforms source files into object files in the appropriate location in the build directory, and generates a war file"/>
-		<echo message="dist 		--> creates a binary distribution"/>
-		<echo message="deploy 		--> Deploy application as a WAR file"/>
-		<echo message="reload    	--> Reload application in Tomcat"/>
-		<echo message="undeploy    	--> Undeploy application in Tomcat"/>
-		<echo message="start     	--> Start Tomcat application"/>
-		<echo message="stop      	--> Stop Tomcat application"/>
-		<echo message="restart      --> Restart Tomcat application"/>
-		<echo message="list      	--> List Tomcat applications"/>
-		<echo message=""/>
-	</target>
-<!-- ==================== All Target ====================================== -->
 
-<!--
+	<!-- ==================== All Target ====================================== -->
+
+	<!--
 
   The "all" target is a shortcut for running the "clean" target followed
   by the "compile" target, to force a complete recompile.
 
 -->
 
-  <target name="all" depends="clean,compile"
+	<target name="all" depends="clean,compile"
    description="Clean build and dist directories, then compile"/>
 
 
 
-<!-- ==================== Clean Target ==================================== -->
+	<!-- ==================== Clean Target ==================================== -->
 
-<!--
+	<!--
 
   The "clean" target deletes any previous "build" and "dist" directory,
   so that you can be ensured the application can be built from scratch.
 
 -->
 
-  <target name="clean"
+	<target name="clean"
    description="Delete old build and dist directories">
-    <delete dir="${build.home}"/>
-    <delete dir="${dist.home}"/>
-  	<delete dir="${war.dir}"/>
-  </target>
+		<delete dir="${build.home}"/>
+		<delete dir="${dist.home}"/>
+		<delete dir="${war.dir}"/>
+	</target>
 
 
 
-<!-- ==================== Compile Target ================================== -->
+	<!-- ==================== Compile Target ================================== -->
 
-<!--
+	<!--
 
   The "compile" target transforms source files (from your "src" directory)
   into object files in the appropriate location in the build directory.
@@ -329,35 +311,47 @@
 
 -->
 
-  <target name="compile" depends="prepare, tests"
-   description="Compile Java sources">
+	<target name="compile" depends="clean, prepare"
+   		description="Compile Java sources">
 
-    <!-- Compile Java classes as necessary -->
-    <javac srcdir="${src.main}"
+		<!-- Compile Java classes as necessary -->
+		<javac srcdir="${src.main}"
           	destdir="${build.home}/WEB-INF/classes"
     		source="1.6" target="1.6"
             debug="${compile.debug}"
       		deprecation="${compile.deprecation}"
          	optimize="${compile.optimize}">
-        <classpath refid="compile.classpath"/>
-    </javac>
-	<war destfile="${war.dir}/${app.name}.war"
+			<classpath refid="compile.classpath"/>
+		</javac>
+		<war destfile="${war.dir}/${app.name}.war"
          webxml="${build.home}/WEB-INF/web.xml">
-		<fileset dir="${build.home}">
-			<include name="**/*.*"/>
-		</fileset>
-	</war>  	
-  </target>
+			<fileset dir="${build.home}">
+				<include name="**/*.*"/>
+			</fileset>
+		</war>
+	</target>
 
-<!-- ==================== Test Target ===================================== -->
-	<target name="tests" description="Compile test tree java files">
+	<!-- ==================== Test Targets ===================================== -->
+	<target name="compileTests" 
+   		description="Compile Java sources for testing">
+
 		<delete dir="${testbuild.dir}"/>
 		<mkdir dir="${testbuild.dir}"/>
+		<copy  todir="${testbuild.dir}">
+			<fileset dir="${resources.dir}">
+				<include name="*.properties"/>
+			</fileset>
+			
+		</copy>	
+		<copy file="${config.dir}/test-context.xml" todir="${testbuild.dir}"/>
 		<javac destdir="${testbuild.dir}" source="1.6" target="1.6" debug="true"
             deprecation="false" optimize="false" failonerror="true">
 			<src path="${src.dir}"/>
 			<classpath refid="test.classpath"/>
 		</javac>
+	</target>
+	
+	<target name="test" depends="compileTests" description="Compile test tree java files, deletes all all test compilation first.">
 		<junit printsummary="on"
             fork="false"
             haltonfailure="false"
@@ -369,6 +363,7 @@
 			<batchtest>
 				<fileset dir="${testbuild.dir}">
 					<include name="**/*Tests.*"/>
+					<!--<exclude name="**/Jdbc*Tests.*" /> USES OWN PROPERTIES FILE IN test/resources-->
 				</fileset>
 			</batchtest>
 
@@ -381,19 +376,17 @@
             ****  One or more tests failed!  Check the output ...  ****
             ***********************************************************
             ***********************************************************
-        </fail>	
-	</target>	
-	
-	
-<!-- ==================== Dist Target ===================================== -->
+        </fail>
+	</target>
+
+	<!-- ==================== Dist Target ===================================== -->
 
 
-<!--
+	<!--
 
   The "dist" target creates a binary distribution of your application
   in a directory structure ready to be archived in a tar.gz or zip file.
   Note that this target depends on two others:
-
   * "compile" so that the entire web application (including external
     dependencies) will have been assembled
 
@@ -401,27 +394,27 @@
 
 -->
 
-  <target name="dist" depends="compile,javadoc"
+	<target name="dist" depends="compile,javadoc"
    description="Create binary distribution">
 
-    <!-- Copy documentation subdirectories -->
-    <mkdir   dir="${dist.home}/docs"/>
-    <copy    todir="${dist.home}/docs">
-      <fileset dir="${docs.home}"/>
-    </copy>
+		<!-- Copy documentation subdirectories -->
+		<mkdir   dir="${dist.home}/docs"/>
+		<copy    todir="${dist.home}/docs">
+			<fileset dir="${docs.home}"/>
+		</copy>
 
-	<copy todir="${dist.home}" preservelastmodified="true">
-		<fileset dir="${war.dir}">
-			<include name="*.war"/>
-		</fileset>
-	</copy>
-  </target>
+		<copy todir="${dist.home}" preservelastmodified="true">
+			<fileset dir="${war.dir}">
+				<include name="*.war"/>
+			</fileset>
+		</copy>
+	</target>
 
 
 
-<!-- ==================== Deploy Target ================================== -->
+	<!-- ==================== Deploy Target ================================== -->
 
-<!--
+	<!--
 
   The "deploy" target tells the specified Tomcat 6 installation to dynamically
   install this web application and make it available for execution.
@@ -436,9 +429,9 @@
 	</target>
 
 
-<!-- ==================== Javadoc Target ================================== -->
+	<!-- ==================== Javadoc Target ================================== -->
 
-<!--
+	<!--
 
   The "javadoc" target creates Javadoc API documentation for the Java
   classes included in your application.  Normally, this is only required
@@ -447,23 +440,23 @@
 
 -->
 
-  <target name="javadoc" depends="compile"
+	<target name="javadoc" depends="compile"
    description="Create Javadoc API documentation">
 
-    <mkdir          dir="${dist.home}/docs/api"/>
-    <javadoc sourcepath="${src.main}"
+		<mkdir          dir="${dist.home}/docs/api"/>
+		<javadoc sourcepath="${src.main}"
                 destdir="${dist.home}/docs/api"
            packagenames="*">
-      <classpath refid="compile.classpath"/>
-    </javadoc>
+			<classpath refid="compile.classpath"/>
+		</javadoc>
 
-  </target>
+	</target>
 
 
 
-<!-- ====================== List Target =================================== -->
+	<!-- ====================== List Target =================================== -->
 
-<!--
+	<!--
 
   The "list" target asks the specified Tomcat 6 installation to list the
   currently running web applications, either loaded at startup time or
@@ -472,19 +465,19 @@
 
 -->
 
-  <target name="list"
+	<target name="list"
    description="List installed applications on servlet container">
 
-    <list    url="${manager.url}"
+		<list    url="${manager.url}"
         username="${manager.username}"
         password="${manager.password}"/>
 
-  </target>
+	</target>
 
 
-<!-- ==================== Prepare Target ================================== -->
+	<!-- ==================== Prepare Target ================================== -->
 
-<!--
+	<!--
 
   The "prepare" target is used to create the "build" destination directory,
   and copy the static contents of your web application to it.  If you need
@@ -495,47 +488,47 @@
 
 -->
 
-  <target name="prepare" depends="clean">
+	<target name="prepare">
 
-    <!-- Create build directories as needed -->
-    <mkdir  dir="${build.home}"/>
-    <mkdir  dir="${build.home}/WEB-INF"/>
-    <mkdir  dir="${build.home}/WEB-INF/classes"/>
-  	<mkdir  dir="${build.home}/WEB-INF/jsp"/>
-  	<mkdir  dir="${build.home}/WEB-INF/lib"/>
- 	<mkdir  dir="${war.dir}" />
-  	
-    <!-- Copy static files as needed -->
-    <!-- *** CUSTOMIZE HERE AS REQUIRED BY YOUR APPLICATION *** -->
-    <copy  todir="${build.home}/WEB-INF/jsp">
-      <fileset dir="${jsp.dir}/">
-    	<include name="*.jsp"/>
-      </fileset>  	
-    </copy>
-  	<copy  todir="${build.home}/WEB-INF/classes">
-  	  <fileset dir="${resources.dir}/">
-      	<include name="*.properties"/>
-      </fileset>  		
-  	</copy>
-  	<copy  todir="${build.home}/WEB-INF">
-    	<fileset dir="${config.dir}/">
-       		<include name="*.*"/>
-        </fileset>
-  	</copy>
-	
-    <!-- Copy external dependencies as required -->
-    <!-- *** CUSTOMIZE HERE AS REQUIRED BY YOUR APPLICATION *** -->
-    <copy  todir="${build.home}/WEB-INF/lib">
-      <fileset dir="${spring.3.2.1.jars}/">
-      	<include name="*.jar"/>
-      </fileset>
-    </copy>
-  </target>
+		<!-- Create build directories as needed -->
+		<mkdir  dir="${build.home}"/>
+		<mkdir  dir="${build.home}/WEB-INF"/>
+		<mkdir  dir="${build.home}/WEB-INF/classes"/>
+		<mkdir  dir="${build.home}/WEB-INF/jsp"/>
+		<mkdir  dir="${build.home}/WEB-INF/lib"/>
+		<mkdir  dir="${war.dir}" />
+
+		<!-- Copy static files as needed -->
+		<!-- *** CUSTOMIZE HERE AS REQUIRED BY YOUR APPLICATION *** -->
+		<copy  todir="${build.home}/WEB-INF/jsp">
+			<fileset dir="${jsp.dir}/">
+				<include name="*.jsp"/>
+			</fileset>
+		</copy>
+		<copy  todir="${build.home}/WEB-INF/classes">
+			<fileset dir="${resources.dir}/">
+				<include name="*.properties"/>
+			</fileset>
+		</copy>
+		<copy  todir="${build.home}/WEB-INF">
+			<fileset dir="${config.dir}/">
+				<include name="*.*"/>
+			</fileset>
+		</copy>
+
+		<!-- Copy external dependencies as required -->
+		<!-- *** CUSTOMIZE HERE AS REQUIRED BY YOUR APPLICATION *** -->
+		<copy  todir="${build.home}/WEB-INF/lib">
+			<fileset dir="${spring.3.2.1.jars}/">
+				<include name="*.jar"/>
+			</fileset>
+		</copy>
+	</target>
 
 
-<!-- ==================== Reload Target =================================== -->
+	<!-- ==================== Reload Target =================================== -->
 
-<!--
+	<!--
 
   The "reload" signals the specified application Tomcat 6 to shut itself down
   and reload. This can be useful when the web application context is not
@@ -549,20 +542,20 @@
 
 -->
 
-  <target name="reload" depends="compile"
+	<target name="reload" depends="compile"
    description="Reload application on servlet container">
 
-    <reload url="${manager.url}"
+		<reload url="${manager.url}"
        username="${manager.username}"
        password="${manager.password}"
            path="${app.path}"/>
 
-  </target>
+	</target>
 
 
-<!-- ==================== Remove Target =================================== -->
+	<!-- ==================== Remove Target =================================== -->
 
-<!--
+	<!--
 
   The "remove" target tells the specified Tomcat 6 installation to dynamically
   remove this web application from service.
@@ -571,15 +564,15 @@
 
 -->
 
-  <target name="undeploy"
+	<target name="undeploy"
    description="Remove application on servlet container">
 
-    <undeploy url="${manager.url}"
+		<undeploy url="${manager.url}"
          username="${manager.username}"
          password="${manager.password}"
              path="${app.path}"/>
 
-  </target>
+	</target>
 
 	<target name="start" description="Start Tomcat application">
 		<start url="${manager.url}"
@@ -599,10 +592,125 @@
 		<stop url="${manager.url}"
                  username="${manager.username}"
                  password="${manager.password}"
-                 path="${app.path}"/>		
+                 path="${app.path}"/>
 		<start url="${manager.url}"
                  username="${manager.username}"
                  password="${manager.password}"
                  path="${app.path}"/>
 	</target>
+
+	<!-- ==================== HSQL DB =================================== -->
+	<target name="createTestTables" depends="compileTests">
+		<echo message="CREATE TABLES USING: ${db.driver} ${db.url}"/>
+		<sql driver="${db.driver}"
+             url="${db.url}"
+             userid="${db.user}"
+             password="${db.pw}"
+             onerror="continue"
+             src="db/create_products.sql">
+			<classpath refid="test.classpath"/>
+		</sql>
+	</target>
+
+	<target name="dropTestTables"  depends="compileTests">
+		<echo message="DROP TABLES USING: ${db.driver} ${db.url}"/>
+		<sql driver="${db.driver}"
+             url="${db.url}"
+             userid="${db.user}"
+             password="${db.pw}"
+             onerror="continue">
+			<classpath refid="test.classpath"/>
+
+        DROP TABLE products;
+
+        </sql>
+	</target>
+
+	<target name="loadTestData"  depends="compileTests">
+		<echo message="LOAD DATA USING: ${db.driver} ${db.url}"/>
+		<sql driver="${db.driver}"
+             url="${db.url}"
+             userid="${db.user}"
+             password="${db.pw}"
+             onerror="continue"
+             src="db/load_data.sql">
+			<classpath refid="test.classpath"/>
+		</sql>
+	</target>
+
+	<target name="printTestData"  depends="compileTests">
+		<echo message="PRINT DATA USING: ${db.driver} ${db.url}"/>
+		<sql driver="${db.driver}"
+             url="${db.url}"
+             userid="${db.user}"
+             password="${db.pw}"
+             onerror="continue"
+             print="true">
+			<classpath refid="test.classpath"/>
+
+        SELECT * FROM products;
+
+        </sql>
+	</target>
+
+	<target name="clearTestData"  depends="compileTests">
+		<echo message="CLEAR DATA USING: ${db.driver} ${db.url}"/>
+		<sql driver="${db.driver}"
+             url="${db.url}"
+             userid="${db.user}"
+             password="${db.pw}"
+             onerror="continue">
+			<classpath refid="test.classpath"/>
+
+        DELETE FROM products;
+
+        </sql>
+	</target>
+
+	<target name="shutdownTestDb"  depends="compileTests">
+		<echo message="SHUT DOWN DATABASE USING: ${db.driver} ${db.url}"/>
+		<sql driver="${db.driver}"
+             url="${db.url}"
+             userid="${db.user}"
+             password="${db.pw}"
+             onerror="continue">
+			<classpath refid="test.classpath"/>
+
+        SHUTDOWN;
+
+        </sql>
+	</target>
+
+	<target name="setupTestDB"  depends="dropTestTables, createTestTables, loadTestData, printTestData ">
+		<echo message="TEST DB SET UP: ${db.driver} ${db.url}"/>
+	</target>
+	
+	<target name="usage">
+		<echo message=""/>
+		<echo message="${app.name} build file"/>
+		<echo message="-----------------------------------"/>
+		<echo message=""/>
+		<echo message="Available targets are:"/>
+		<echo message=""/>
+		<echo message="all 			--> The 'all' target is a shortcut for running 'clean/compile' target"/>
+		<echo message="clean 		--> The 'clean' removes all generated content."/>
+		<echo message="prepare 		--> Generates the directory structure for a deployment."/>
+		<echo message="compile 		--> transforms source files into object files in the appropriate location in the build directory, and generates a war file"/>
+		<echo message="dist 		--> creates a binary distribution"/>
+		<echo message="deploy 		--> Deploy application as a WAR file"/>
+		<echo message="reload    	--> Reload application in Tomcat"/>
+		<echo message="undeploy    	--> Undeploy application in Tomcat"/>
+		<echo message="start     	--> Start Tomcat application"/>
+		<echo message="stop      	--> Stop Tomcat application"/>
+		<echo message="restart      --> Restart Tomcat application"/>
+		<echo message="test      --> Run all unit tests"/>
+		<echo message="createTestTables     --> Creates test db rables"/>
+		<echo message="dropTestTables      	--> Drops test db tables"/>
+		<echo message="loadTestData      	--> Loads test data into tables"/>
+		<echo message="printTestData      	--> prints data from test tables"/>
+		<echo message="clearTestData      	--> Clears data from test tables"/>
+		<echo message="shutdownTestDb      	--> Shuts down the test db"/>
+		<echo message="setupTestDb      	--> Recreates the testDB with data."/>
+		<echo message=""/>
+	</target>	
 </project>
