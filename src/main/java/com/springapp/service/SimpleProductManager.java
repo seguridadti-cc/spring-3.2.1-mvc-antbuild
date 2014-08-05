@@ -21,7 +21,7 @@ public class SimpleProductManager implements ProductManager {
 		return this.products;        
     }
 	
-	public void reloadProducts() {
+	public void readProducts() {
         this.products = productDAO.getProductList();
     }
 
