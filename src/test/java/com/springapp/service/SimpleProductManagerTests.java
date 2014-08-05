@@ -30,42 +30,17 @@ public class SimpleProductManagerTests extends TestCase {
     	testContext = new FileSystemXmlApplicationContext("classpath:test-context.xml");
     }
     
-    public void testGetProductsWithNoProducts() {
+    public void testGetProducts() {
     	productManager = (SimpleProductManager)testContext.getBean("productManager");
-        assertNull(productManager.getProducts());
+        assertNotNull(productManager.getProducts());
     }
-    
-    public void testIncreasePriceWithNullListOfProducts() {
-        try {
-            productManager = new SimpleProductManager();
-            productManager.increasePrice(POSITIVE_PRICE_INCREASE);
-        }
-        catch(NullPointerException ex) {
-            fail("Products list is null.");
-        }
-    }
-        
-    public void testIncreasePriceWithEmptyListOfProducts() {
-        try {
-        	productManager = (SimpleProductManager)testContext.getBean("productManager");
-            productManager.setProducts(new ArrayList<Product>());
-            productManager.increasePrice(POSITIVE_PRICE_INCREASE);
-        }
-        catch(Exception ex) {
-            fail("Products list is empty.");
-        }           
-    }
-    
+
     public void testIncreasePriceWithPositivePercentage() {
     	productManager = (SimpleProductManager)testContext.getBean("productManager");
- 	
     	assertNotNull("JdbcProductDao: null", productManager.getProductDAO()); 	
-    	productManager.reloadProducts();
-    	
     	List<Product> products = productManager.getProducts(); 
     	Product first = products.get(0);
     	productManager.increasePrice(POSITIVE_PRICE_INCREASE);
-
     	products = productManager.getProducts(); 
     	first = products.get(0);
     	Double actualValue = first.getPrice(); 

@@ -1,5 +1,6 @@
 package com.springapp.web;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.mvc.Controller;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -20,6 +21,8 @@ import java.io.IOException;
 public class InventoryController implements Controller {
 
     protected final Log logger = LogFactory.getLog(getClass());
+    
+    @Autowired
     private ProductManager productManager;
     
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)

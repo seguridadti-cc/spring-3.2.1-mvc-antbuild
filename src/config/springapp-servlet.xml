@@ -6,52 +6,6 @@
        http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
 
   <!-- the application context definition for the springapp DispatcherServlet -->
-    <bean id="productDao" class="com.springapp.repository.JdbcProductDao">
-        <property name="dataSource" ref="dataSource" />
-    </bean>
-
-    <bean id="productManager" class="com.springapp.service.SimpleProductManager">
-         <property name="productDAO" ref="productDao"/>   
-<!--         <property name="products"> -->
-<!--             <list> -->
-<!--                 <ref bean="product1"/> -->
-<!--                 <ref bean="product2"/> -->
-<!--                 <ref bean="product3"/> -->
-<!--             </list> -->
-<!--         </property> -->
-    </bean>
-
-    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-      <property name="driverClassName" value="${db.driverClassName}"/>
-      <property name="url" value="${db.url}"/>
-      <property name="username"  value="${db.user}"/>
-      <property name="password" value="${db.pw}"/>
-    </bean>
-    
-    <bean id="propertyConfigurer" 
-          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="locations">
-            <list>
-                <value>classpath:jdbc.properties</value>
-            </list>
-        </property>
-    </bean>
-
-    <bean id="product1" class="com.springapp.domain.Product">
-        <property name="description" value="Lamp"/>
-        <property name="price" value="5.75"/>
-    </bean>
-        
-    <bean id="product2" class="com.springapp.domain.Product">
-        <property name="description" value="Table"/>
-        <property name="price" value="75.25"/>
-    </bean>
-
-    <bean id="product3" class="com.springapp.domain.Product">
-        <property name="description" value="Chair"/>
-        <property name="price" value="22.79"/>
-    </bean>
-
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
         <property name="basename" value="messages"/>
     </bean>

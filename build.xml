@@ -263,7 +263,7 @@
 -->
 
 	<property name="compile.debug"       value="true"/>
-	<property name="compile.deprecation" value="false"/>
+	<property name="compile.deprecation" value="true"/>
 	<property name="compile.optimize"    value="true"/>
 
 
@@ -363,7 +363,7 @@
 			<batchtest>
 				<fileset dir="${testbuild.dir}">
 					<include name="**/*Tests.*"/>
-					<!--<exclude name="**/Jdbc*Tests.*" /> USES OWN PROPERTIES FILE IN test/resources-->
+					<exclude name="**/Jdbc*Tests.*" />
 				</fileset>
 			</batchtest>
 
@@ -379,6 +379,32 @@
         </fail>
 	</target>
 
+	<target name="testJDBC" depends="compileTests, setupTestDB" description="Compile DB test tree java files, deletes all all test compilation first.">
+		<junit printsummary="on"
+            fork="false"
+            haltonfailure="false"
+            failureproperty="tests.failed"
+            showoutput="true">
+			<classpath refid="test.classpath"/>
+			<formatter type="brief" usefile="false"/>
+
+			<batchtest>
+				<fileset dir="${testbuild.dir}">
+					<include name="**/Jdbc*Tests.*" />
+				</fileset>
+			</batchtest>
+
+		</junit>
+
+		<fail if="tests.failed">
+            tests.failed=${tests.failed}
+            ***********************************************************
+            ***********************************************************
+            ****  One or more tests failed!  Check the output ...  ****
+            ***********************************************************
+            ***********************************************************
+        </fail>
+	</target>
 	<!-- ==================== Dist Target ===================================== -->
 
 
