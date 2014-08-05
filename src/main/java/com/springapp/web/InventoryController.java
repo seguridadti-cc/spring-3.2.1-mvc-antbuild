@@ -22,7 +22,6 @@ public class InventoryController implements Controller {
 
     protected final Log logger = LogFactory.getLog(getClass());
     
-    @Autowired
     private ProductManager productManager;
     
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)

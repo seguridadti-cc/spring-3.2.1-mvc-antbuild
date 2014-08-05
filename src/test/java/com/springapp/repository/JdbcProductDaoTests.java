@@ -38,7 +38,7 @@ public class JdbcProductDaoTests  extends AbstractTransactionalDataSourceSpringC
         
         for (Product p : products) {
             p.setPrice(200.12);
-            productDao.saveProduct(p);
+            productDao.updateProduct(p);
         }
         
         List<Product> updatedProducts = productDao.getProductList();

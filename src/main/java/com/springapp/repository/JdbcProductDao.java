@@ -30,8 +30,9 @@ public class JdbcProductDao extends SimpleJdbcDaoSupport implements ProductDao {
         return products;
     }
 
-	public void saveProduct(Product prod) {
-        int count = getSimpleJdbcTemplate().update(
+	public void updateProduct(Product prod) {
+        logger.info("updating:" + prod);
+		int count = getSimpleJdbcTemplate().update(
             "update products set description = :description, price = :price where id = :id",
             new MapSqlParameterSource().addValue("description", prod.getDescription())
                 .addValue("price", prod.getPrice())

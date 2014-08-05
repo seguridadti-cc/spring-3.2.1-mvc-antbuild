@@ -11,7 +11,7 @@
     </bean>
 
     <bean name="/hello.htm" class="com.springapp.web.InventoryController">
-<!--         <property name="productManager" ref="productManager"/> -->
+		<property name="productManager" ref="productManager"/>
     </bean>
     
     <bean name="/priceincrease.htm" class="com.springapp.web.PriceIncreaseFormController">
