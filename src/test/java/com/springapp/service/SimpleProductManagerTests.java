@@ -21,16 +21,8 @@ import com.springapp.repository.*;
 public class SimpleProductManagerTests extends TestCase {
 	
     private SimpleProductManager productManager;
-    private List<Product> products;
     protected final Log logger = LogFactory.getLog(getClass());
-//    private static int PRODUCT_COUNT = 2;
-//    
-//    private static Double CHAIR_PRICE = new Double(20.50);
-//    private static String CHAIR_DESCRIPTION = "Chair";
-//    
-//    private static String TABLE_DESCRIPTION = "Table";
-//    private static Double TABLE_PRICE = new Double(150.10); 
-    
+   
    
     private static int POSITIVE_PRICE_INCREASE = 10;
     private ApplicationContext testContext;
@@ -39,7 +31,7 @@ public class SimpleProductManagerTests extends TestCase {
     }
     
     public void testGetProductsWithNoProducts() {
-        productManager = new SimpleProductManager();
+    	productManager = (SimpleProductManager)testContext.getBean("productManager");
         assertNull(productManager.getProducts());
     }
     
@@ -55,8 +47,7 @@ public class SimpleProductManagerTests extends TestCase {
         
     public void testIncreasePriceWithEmptyListOfProducts() {
         try {
-            productManager = new SimpleProductManager();
-            productManager.setProductDAO(new JdbcProductDao());
+        	productManager = (SimpleProductManager)testContext.getBean("productManager");
             productManager.setProducts(new ArrayList<Product>());
             productManager.increasePrice(POSITIVE_PRICE_INCREASE);
         }
@@ -66,11 +57,10 @@ public class SimpleProductManagerTests extends TestCase {
     }
     
     public void testIncreasePriceWithPositivePercentage() {
-    	JdbcProductDao dao = (JdbcProductDao)testContext.getBean("productDao");
-    	productManager = new SimpleProductManager();   	
-    	assertNotNull("JdbcProductDao: null", dao);
-    	productManager.setProductDAO(dao);    	
-    	productManager.loadProducts();
+    	productManager = (SimpleProductManager)testContext.getBean("productManager");
+ 	
+    	assertNotNull("JdbcProductDao: null", productManager.getProductDAO()); 	
+    	productManager.reloadProducts();
     	
     	List<Product> products = productManager.getProducts(); 
     	Product first = products.get(0);

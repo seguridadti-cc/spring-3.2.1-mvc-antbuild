@@ -34,5 +34,7 @@
           class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource" />
     </bean>
-
+    <bean id="productManager" class="com.springapp.service.SimpleProductManager">
+         <property name="productDAO" ref="productDao"/>   
+    </bean>
 </beans>

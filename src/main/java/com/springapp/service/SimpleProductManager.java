@@ -18,14 +18,11 @@ public class SimpleProductManager implements ProductManager {
 	protected final Log logger = LogFactory.getLog(getClass());
 	
 	public List<Product> getProducts() {
-		if (productDAO != null) {
-			return productDAO.getProductList();
-		}
-		return null;        
+		return this.products;        
     }
 	
-	public void loadProducts() {
-        this.products = getProducts();
+	public void reloadProducts() {
+        this.products = productDAO.getProductList();
     }
 
     public void increasePrice(int percentage) {

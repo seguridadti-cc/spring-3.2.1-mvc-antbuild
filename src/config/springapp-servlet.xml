@@ -6,11 +6,12 @@
        http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
 
   <!-- the application context definition for the springapp DispatcherServlet -->
+    <bean id="productDao" class="com.springapp.repository.JdbcProductDao">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
 
     <bean id="productManager" class="com.springapp.service.SimpleProductManager">
-         <property name="productDAO" value="com.springapp.repository.JdbcProductDao">
-            
-        </property>   
+         <property name="productDAO" ref="productDao"/>   
 <!--         <property name="products"> -->
 <!--             <list> -->
 <!--                 <ref bean="product1"/> -->
@@ -18,6 +19,22 @@
 <!--                 <ref bean="product3"/> -->
 <!--             </list> -->
 <!--         </property> -->
+    </bean>
+
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+      <property name="driverClassName" value="${db.driverClassName}"/>
+      <property name="url" value="${db.url}"/>
+      <property name="username"  value="${db.user}"/>
+      <property name="password" value="${db.pw}"/>
+    </bean>
+    
+    <bean id="propertyConfigurer" 
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:jdbc.properties</value>
+            </list>
+        </property>
     </bean>
 
     <bean id="product1" class="com.springapp.domain.Product">
