@@ -9,34 +9,39 @@ import javax.sql.DataSource;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
-import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
-import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
+import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 import com.springapp.domain.Product;
 
-@SuppressWarnings("deprecation")
-public class JdbcProductDao extends SimpleJdbcDaoSupport implements ProductDao {
+public class JdbcProductDao implements ProductDao {
 
     /** Logger for this class and subclasses */
     protected final Log logger = LogFactory.getLog(getClass());
     
+    private JdbcTemplate jdbcTemplate;
+    
     public List<Product> getProductList() {       
         List<Product> products = new ArrayList<Product>();
-    	SimpleJdbcTemplate template = getSimpleJdbcTemplate();
+    	JdbcTemplate template = getJdbcTemplate();
     	products = template.query("select id, description, price from products", 
                 					new ProductMapper());  
         return products;
     }
+    public JdbcTemplate getJdbcTemplate() {
+		return jdbcTemplate;
+	}
+	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
+	}
 
 	public void updateProduct(Product prod) {
         logger.info("updating:" + prod);
-		int count = getSimpleJdbcTemplate().update(
-            "update products set description = :description, price = :price where id = :id",
-            new MapSqlParameterSource().addValue("description", prod.getDescription())
-                .addValue("price", prod.getPrice())
-                .addValue("id", prod.getId()));
+        getJdbcTemplate().update(
+        		"update products set description = ?, price = ? where id = ?",
+        		new Object[] { prod.getDescription(), prod.getPrice(), prod.getId() });
     }
     
     private static class ProductMapper implements ParameterizedRowMapper<Product> {

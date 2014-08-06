@@ -9,9 +9,13 @@
            http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
            http://www.springframework.org/schema/tx 
            http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
+
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
     
     <bean id="productDao" class="com.springapp.repository.JdbcProductDao">
-        <property name="dataSource" ref="dataSource" />
+        <property name="jdbcTemplate" ref="jdbcTemplate" />
     </bean>
 
     <bean id="productManager" class="com.springapp.service.SimpleProductManager">

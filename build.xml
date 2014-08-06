@@ -325,9 +325,7 @@
 		</javac>
 		<war destfile="${war.dir}/${app.name}.war"
          webxml="${build.home}/WEB-INF/web.xml">
-			<fileset dir="${build.home}">
-				<include name="**/*.*"/>
-			</fileset>
+			<fileset dir="${build.home}" />
 		</war>
 	</target>
 
@@ -522,6 +520,7 @@
 		<mkdir  dir="${build.home}/WEB-INF/classes"/>
 		<mkdir  dir="${build.home}/WEB-INF/jsp"/>
 		<mkdir  dir="${build.home}/WEB-INF/lib"/>
+		<mkdir  dir="${build.home}/WEB-INF/logs"/>
 		<mkdir  dir="${war.dir}" />
 
 		<!-- Copy static files as needed -->

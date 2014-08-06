@@ -4,3 +4,10 @@ src/test/classes/
 build.xml.bak
 db/*
 !db/*.sql
+logs/
+test.lck
+test.log
+test.properties
+test.script
+
+

@@ -10,11 +10,11 @@
         <property name="basename" value="messages"/>
     </bean>
 
-    <bean name="/hello.htm" class="com.springapp.web.InventoryController">
+    <bean name="/products.do" class="com.springapp.web.InventoryController">
 		<property name="productManager" ref="productManager"/>
     </bean>
     
-    <bean name="/priceincrease.htm" class="com.springapp.web.PriceIncreaseFormController">
+    <bean name="/priceIncrease.do" class="com.springapp.web.PriceIncreaseFormController">
         <property name="sessionForm" value="true"/>
         <property name="commandName" value="priceIncrease"/>
         <property name="commandClass" value="com.springapp.service.PriceIncrease"/>
@@ -22,7 +22,7 @@
             <bean class="com.springapp.service.PriceIncreaseValidator"/>
         </property>
         <property name="formView" value="priceincrease"/>
-        <property name="successView" value="hello.htm"/>
+        <property name="successView" value="products.do"/>
         <property name="productManager" ref="productManager"/>
     </bean>
     

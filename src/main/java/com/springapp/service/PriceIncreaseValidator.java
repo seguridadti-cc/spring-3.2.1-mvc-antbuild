@@ -15,9 +15,10 @@ public class PriceIncreaseValidator implements Validator {
 
     /** Logger for this class and subclasses */
     protected final Log logger = LogFactory.getLog(getClass());
-
-    public boolean supports(Class clazz) {
-        return PriceIncrease.class.equals(clazz);
+    
+    @Override
+    public boolean supports(Class<?> classObject) {
+        return classObject == PriceIncrease.class;
     }
 
     public void validate(Object obj, Errors errors) {

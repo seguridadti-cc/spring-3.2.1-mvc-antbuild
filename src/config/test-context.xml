@@ -6,12 +6,16 @@
         http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"> 
 
     <!-- the test application context definition for the jdbc based tests --> 
-    <bean id="productManager" class="com.springapp.service.SimpleProductManager">
-         <property name="productDAO" ref="productDao"/>   
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource" />
     </bean>
     
     <bean id="productDao" class="com.springapp.repository.JdbcProductDao">
-        <property name="dataSource" ref="dataSource" />
+        <property name="jdbcTemplate" ref="jdbcTemplate" />
+    </bean>
+
+    <bean id="productManager" class="com.springapp.service.SimpleProductManager">
+         <property name="productDAO" ref="productDao"/>   
     </bean>
     
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
