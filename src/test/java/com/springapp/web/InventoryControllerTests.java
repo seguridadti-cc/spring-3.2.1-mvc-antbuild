@@ -27,7 +27,7 @@ public class InventoryControllerTests extends TestCase {
     	InventoryController controller = new InventoryController();
         controller.setProductManager(productManager);
         ModelAndView modelAndView = controller.handleRequest(null, null);		
-        assertEquals("hello", modelAndView.getViewName());
+        assertEquals("products", modelAndView.getViewName());
         assertNotNull(modelAndView.getModel());
         Map modelMap = (Map) modelAndView.getModel().get("model");
         String nowValue = (String) modelMap.get("now");

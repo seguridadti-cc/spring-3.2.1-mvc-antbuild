@@ -15,14 +15,9 @@
     </bean>
     
     <bean name="/priceIncrease.do" class="com.springapp.web.PriceIncreaseFormController">
-        <property name="sessionForm" value="true"/>
-        <property name="commandName" value="priceIncrease"/>
-        <property name="commandClass" value="com.springapp.service.PriceIncrease"/>
-        <property name="validator">
+        <property name="priceIncreaseValidator">
             <bean class="com.springapp.service.PriceIncreaseValidator"/>
         </property>
-        <property name="formView" value="priceincrease"/>
-        <property name="successView" value="products.do"/>
         <property name="productManager" ref="productManager"/>
     </bean>
     

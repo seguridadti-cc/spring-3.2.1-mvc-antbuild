@@ -1,43 +1,59 @@
 package com.springapp.web;
 
-import org.springframework.web.servlet.mvc.SimpleFormController;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
+import com.springapp.service.PriceIncreaseValidator;
 import com.springapp.service.ProductManager;
 import com.springapp.service.PriceIncrease;
 
-public class PriceIncreaseFormController extends SimpleFormController {
+@Controller
+@RequestMapping("/priceIncrease.do")
+public class PriceIncreaseFormController {
 
     /** Logger for this class and subclasses */
     protected final Log logger = LogFactory.getLog(getClass());
-
+    
+    @Autowired
+    private PriceIncreaseValidator priceIncreaseValidator;
+    
+    @Autowired
     private ProductManager productManager;
 
-    public ModelAndView onSubmit(Object command)
+    
+    @RequestMapping(method=RequestMethod.POST)
+    public String onSubmit(
+    		@ModelAttribute("priceIncrease") PriceIncrease priceIncrease, 
+    		BindingResult result)
             throws ServletException {
-
-        int increase = ((PriceIncrease) command).getPercentage();
-        logger.info("Increasing prices by " + increase + "%.");
-
-        productManager.increasePrice(increase);
-
-        logger.info("returning from PriceIncreaseForm view to " + getSuccessView());
-
-        return new ModelAndView(new RedirectView(getSuccessView()));
+        
+        priceIncreaseValidator.validate(priceIncrease, result);
+        if (result.hasErrors()) {
+        	return "priceIncrease";  
+        }
+        else {
+        	int increase = priceIncrease.getPercentage();
+        	logger.info("Increasing prices by " + increase + "%.");
+	
+	        productManager.increasePrice(increase);
+	
+	        return "redirect:products.do";
+        }
     }
 
-    protected Object formBackingObject(HttpServletRequest request) throws ServletException {
+    @RequestMapping(method=RequestMethod.GET) 
+    public String initializeForm(ModelMap model) { 
+        // Perform and Model / Form initialization
         PriceIncrease priceIncrease = new PriceIncrease();
-        priceIncrease.setPercentage(20);
-        return priceIncrease;
-    }
+        priceIncrease.setPercentage(20);  
+        model.addAttribute("priceIncrease", priceIncrease);   
+        return "priceincrease"; 
+    } 
 
     public void setProductManager(ProductManager productManager) {
         this.productManager = productManager;
@@ -46,5 +62,14 @@ public class PriceIncreaseFormController extends SimpleFormController {
     public ProductManager getProductManager() {
         return productManager;
     }
+
+	public PriceIncreaseValidator getPriceIncreaseValidator() {
+		return priceIncreaseValidator;
+	}
+
+	public void setPriceIncreaseValidator(
+			PriceIncreaseValidator priceIncreaseValidator) {
+		this.priceIncreaseValidator = priceIncreaseValidator;
+	}
 
 }
