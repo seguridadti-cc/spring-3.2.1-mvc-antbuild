@@ -130,7 +130,7 @@
 	<property name="docs.home"     		value="${basedir}/docs"/>
 	<property name="src.dir"      		value="${basedir}/src/"/>
 	<property name="src.main"      		value="${basedir}/src/main"/>
-	<property name="spring.3.2.1.jars"  value="${basedir}/dependencies"/>
+	<property name="dependencies"       value="${basedir}/dependencies"/>
 	<property name="resources.dir" 		value="${src.dir}/resources"/>
 	<property name="jsp.dir" 			value="${src.dir}/jsp"/>
 	<property name="config.dir" 		value="${src.dir}/config"/>
@@ -187,7 +187,7 @@
 		<!--
     <pathelement location="${foo.jar}"/>
 -->
-		<fileset dir="${spring.3.2.1.jars}">
+		<fileset dir="${dependencies}">
 			<include name="*.jar"/>
 		</fileset>
 
@@ -209,7 +209,7 @@
 		<!--
     <pathelement location="${foo.jar}"/>
 -->
-		<fileset dir="${spring.3.2.1.jars}">
+		<fileset dir="${dependencies}">
 			<include name="*.jar"/>
 		</fileset>
 
@@ -544,7 +544,7 @@
 		<!-- Copy external dependencies as required -->
 		<!-- *** CUSTOMIZE HERE AS REQUIRED BY YOUR APPLICATION *** -->
 		<copy  todir="${build.home}/WEB-INF/lib">
-			<fileset dir="${spring.3.2.1.jars}/">
+			<fileset dir="${dependencies}/">
 				<include name="*.jar"/>
 			</fileset>
 		</copy>
