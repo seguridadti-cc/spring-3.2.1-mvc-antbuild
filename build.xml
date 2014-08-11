@@ -130,7 +130,7 @@
 	<property name="docs.home"     		value="${basedir}/docs"/>
 	<property name="src.dir"      		value="${basedir}/src/"/>
 	<property name="src.main"      		value="${basedir}/src/main"/>
-	<property name="dependencies"       value="${basedir}/dependencies"/>
+	<property name="dependencies"       value="${basedir}/lib"/>
 	<property name="resources.dir" 		value="${src.dir}/resources"/>
 	<property name="jsp.dir" 			value="${src.dir}/jsp"/>
 	<property name="config.dir" 		value="${src.dir}/config"/>
