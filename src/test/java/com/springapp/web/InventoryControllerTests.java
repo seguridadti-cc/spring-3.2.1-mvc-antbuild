@@ -1,14 +1,11 @@
 package com.springapp.web;
 
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.springapp.domain.Product;
-import com.springapp.service.ProductManager;
 import com.springapp.service.SimpleProductManager;
 import com.springapp.web.InventoryController;
 

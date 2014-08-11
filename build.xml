@@ -130,12 +130,13 @@
 	<property name="docs.home"     		value="${basedir}/docs"/>
 	<property name="src.dir"      		value="${basedir}/src/"/>
 	<property name="src.main"      		value="${basedir}/src/main"/>
-	<property name="spring.3.2.1.jars"   	value="/home/Developer/spring-3.2.1-jars"/>
+	<property name="spring.3.2.1.jars"  value="${basedir}/dependencies"/>
 	<property name="resources.dir" 		value="${src.dir}/resources"/>
-	<property name="jsp.dir" 				value="${src.dir}/jsp"/>
-	<property name="config.dir" 			value="${src.dir}/config"/>
-	<property name="war.dir" 			    value="${basedir}/war"/>
+	<property name="jsp.dir" 			value="${src.dir}/jsp"/>
+	<property name="config.dir" 		value="${src.dir}/config"/>
+	<property name="war.dir" 			value="${basedir}/war"/>
 	<property name="test.dir" 			value="${src.dir}/test/"/>
+	<property name="test.resources" 	value="${test.dir}/resources"/>
 	<property name="testbuild.dir" 		value="${test.dir}/classes"/>
 
 	
@@ -292,13 +293,11 @@
 -->
 
 	<target name="clean"
-   description="Delete old build and dist directories">
+		description="Delete old build and dist directories">
 		<delete dir="${build.home}"/>
 		<delete dir="${dist.home}"/>
 		<delete dir="${war.dir}"/>
 	</target>
-
-
 
 	<!-- ==================== Compile Target ================================== -->
 
@@ -338,9 +337,10 @@
 		<copy  todir="${testbuild.dir}">
 			<fileset dir="${resources.dir}">
 				<include name="*.properties"/>
-			</fileset>
-			
+				<exclude name="log4j.properties"/>
+			</fileset>			
 		</copy>	
+		<copy file="${test.resources}/log4j.properties" todir="${testbuild.dir}"/>
 		<copy file="${config.dir}/test-context.xml" todir="${testbuild.dir}"/>
 		<javac destdir="${testbuild.dir}" source="1.6" target="1.6" debug="true"
             deprecation="false" optimize="false" failonerror="true">
@@ -728,8 +728,9 @@
 		<echo message="start     	--> Start Tomcat application"/>
 		<echo message="stop      	--> Stop Tomcat application"/>
 		<echo message="restart      --> Restart Tomcat application"/>
-		<echo message="test      --> Run all unit tests"/>
-		<echo message="createTestTables     --> Creates test db rables"/>
+		<echo message="test      	--> Run all unit tests except JDBC tests"/>
+		<echo message="testJDBC      --> Run all JDBC unit tests"/>
+		<echo message="createTestTables     --> Creates test db tables"/>
 		<echo message="dropTestTables      	--> Drops test db tables"/>
 		<echo message="loadTestData      	--> Loads test data into tables"/>
 		<echo message="printTestData      	--> prints data from test tables"/>
