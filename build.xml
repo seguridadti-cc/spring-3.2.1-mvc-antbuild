@@ -316,7 +316,7 @@
 		<!-- Compile Java classes as necessary -->
 		<javac srcdir="${src.main}"
           	destdir="${build.home}/WEB-INF/classes"
-    		source="1.6" target="1.6"
+    		source="1.8" target="1.8"
             debug="${compile.debug}"
       		deprecation="${compile.deprecation}"
          	optimize="${compile.optimize}">
@@ -342,7 +342,7 @@
 		</copy>	
 		<copy file="${test.resources}/log4j.properties" todir="${testbuild.dir}"/>
 		<copy file="${config.dir}/test-context.xml" todir="${testbuild.dir}"/>
-		<javac destdir="${testbuild.dir}" source="1.6" target="1.6" debug="true"
+		<javac destdir="${testbuild.dir}" source="1.8" target="1.8" debug="true"
             deprecation="false" optimize="false" failonerror="true">
 			<src path="${src.dir}"/>
 			<classpath refid="test.classpath"/>
