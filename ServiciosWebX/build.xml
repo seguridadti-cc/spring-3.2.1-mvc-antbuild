@@ -1,0 +1,29 @@
+<project name="ServiciosWebX" default="jar" basedir=".">
+    <property name="src.dir" value="src/main"/>
+    <property name="build.dir" value="build"/>
+    <property name="dist.dir" value="dist"/>
+    <property name="dependencies" value="${basedir}/../ProyectoWeb/lib"/>
+
+    <path id="compile.classpath">
+        <fileset dir="${dependencies}">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+        <delete dir="${dist.dir}"/>
+    </target>
+
+    <target name="compile" depends="clean">
+        <mkdir dir="${build.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${build.dir}" source="1.8" target="1.8">
+            <classpath refid="compile.classpath"/>
+        </javac>
+    </target>
+
+    <target name="jar" depends="compile">
+        <mkdir dir="${dist.dir}"/>
+        <jar destfile="${dist.dir}/ServiciosWebX.jar" basedir="${build.dir}"/>
+    </target>
+</project>

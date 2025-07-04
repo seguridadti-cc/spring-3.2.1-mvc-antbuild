@@ -130,7 +130,10 @@
 	<property name="docs.home"     		value="${basedir}/docs"/>
 	<property name="src.dir"      		value="${basedir}/src/"/>
 	<property name="src.main"      		value="${basedir}/src/main"/>
-	<property name="dependencies"       value="${basedir}/lib"/>
+        <property name="dependencies"       value="${basedir}/lib"/>
+        <!-- ServiciosWebX project location -->
+        <property name="servicioswebx.home" value="${basedir}/../ServiciosWebX"/>
+        <property name="servicioswebx.jar" value="${servicioswebx.home}/dist/ServiciosWebX.jar"/>
 	<property name="resources.dir" 		value="${src.dir}/resources"/>
 	<property name="jsp.dir" 			value="${src.dir}/jsp"/>
 	<property name="config.dir" 		value="${src.dir}/config"/>
@@ -187,9 +190,10 @@
 		<!--
     <pathelement location="${foo.jar}"/>
 -->
-		<fileset dir="${dependencies}">
-			<include name="*.jar"/>
-		</fileset>
+                <fileset dir="${dependencies}">
+                        <include name="*.jar"/>
+                </fileset>
+                <pathelement location="${servicioswebx.jar}"/>
 
 		<!-- Include all elements that Tomcat exposes to applications -->
 		<fileset dir="${appserver.home}/bin">
@@ -202,16 +206,17 @@
 	</path>
 
 
-	<path id="test.classpath">
+        <path id="test.classpath">
 
 		<!-- Include all JAR files that will be included in /WEB-INF/lib -->
 		<!-- *** CUSTOMIZE HERE AS REQUIRED BY YOUR APPLICATION *** -->
 		<!--
     <pathelement location="${foo.jar}"/>
 -->
-		<fileset dir="${dependencies}">
-			<include name="*.jar"/>
-		</fileset>
+                <fileset dir="${dependencies}">
+                        <include name="*.jar"/>
+                </fileset>
+                <pathelement location="${servicioswebx.jar}"/>
 
 		<!-- Include all elements that TcompileTestsomcat exposes to applications -->
 		<fileset dir="${appserver.home}/bin">
@@ -310,8 +315,12 @@
 
 -->
 
-	<target name="compile" depends="clean, prepare"
-   		description="Compile Java sources">
+        <target name="buildServiciosWebX">
+                <ant dir="${servicioswebx.home}" target="jar"/>
+        </target>
+
+        <target name="compile" depends="clean, buildServiciosWebX, prepare"
+                description="Compile Java sources">
 
 		<!-- Compile Java classes as necessary -->
 		<javac srcdir="${src.main}"
@@ -543,12 +552,13 @@
 
 		<!-- Copy external dependencies as required -->
 		<!-- *** CUSTOMIZE HERE AS REQUIRED BY YOUR APPLICATION *** -->
-		<copy  todir="${build.home}/WEB-INF/lib">
-			<fileset dir="${dependencies}/">
-				<include name="*.jar"/>
-			</fileset>
-		</copy>
-	</target>
+                <copy  todir="${build.home}/WEB-INF/lib">
+                        <fileset dir="${dependencies}/">
+                                <include name="*.jar"/>
+                        </fileset>
+                </copy>
+                <copy file="${servicioswebx.jar}" todir="${build.home}/WEB-INF/lib"/>
+        </target>
 
 
 	<!-- ==================== Reload Target =================================== -->
