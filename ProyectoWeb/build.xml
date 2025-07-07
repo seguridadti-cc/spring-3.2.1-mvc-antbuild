@@ -315,11 +315,17 @@
 
 -->
 
+        <target name="resolve">
+                <exec executable="gradle">
+                        <arg value="copyDependencies"/>
+                </exec>
+        </target>
+
         <target name="buildServiciosWebX">
                 <ant dir="${servicioswebx.home}" target="jar"/>
         </target>
 
-        <target name="compile" depends="clean, buildServiciosWebX, prepare"
+        <target name="compile" depends="clean, resolve, buildServiciosWebX, prepare"
                 description="Compile Java sources">
 
 		<!-- Compile Java classes as necessary -->
