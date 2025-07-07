@@ -1,0 +1,50 @@
+plugins {
+    id 'base'
+}
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    libs {
+        transitive = false
+    }
+}
+
+dependencies {
+    libs 'aopalliance:aopalliance:1.0'
+    libs 'org.aspectj:aspectjweaver:1.8.1'
+    libs 'commons-dbcp:commons-dbcp:1.4'
+    libs 'commons-logging:commons-logging:1.2'
+    libs 'commons-pool:commons-pool:1.6'
+    libs 'org.hsqldb:hsqldb:2.3.2'
+    libs 'javax.servlet:jstl:1.2'
+    libs 'javax.servlet:servlet-api:2.5'
+    libs 'junit:junit:4.11'
+    libs 'log4j:log4j:1.2.17'
+    libs 'org.springframework:spring-aop:3.2.1.RELEASE'
+    libs 'org.springframework:spring-aspects:3.2.1.RELEASE'
+    libs 'org.springframework:spring-beans:3.2.1.RELEASE'
+    libs 'org.springframework:spring-context:3.2.1.RELEASE'
+    libs 'org.springframework:spring-context-support:3.2.1.RELEASE'
+    libs 'org.springframework:spring-core:3.2.1.RELEASE'
+    libs 'org.springframework:spring-expression:3.2.1.RELEASE'
+    libs 'org.springframework:spring-instrument:3.2.1.RELEASE'
+    libs 'org.springframework:spring-instrument-tomcat:3.2.1.RELEASE'
+    libs 'org.springframework:spring-jdbc:3.2.1.RELEASE'
+    libs 'org.springframework:spring-jms:3.2.1.RELEASE'
+    libs 'org.springframework:spring-orm:3.2.1.RELEASE'
+    libs 'org.springframework:spring-oxm:3.2.1.RELEASE'
+    libs 'org.springframework:spring-struts:3.2.1.RELEASE'
+    libs 'org.springframework:spring-test:3.2.1.RELEASE'
+    libs 'org.springframework:spring-tx:3.2.1.RELEASE'
+    libs 'org.springframework:spring-web:3.2.1.RELEASE'
+    libs 'org.springframework:spring-webmvc:3.2.1.RELEASE'
+    libs 'org.springframework:spring-webmvc-portlet:3.2.1.RELEASE'
+}
+
+task copyDependencies(type: Copy) {
+    from configurations.libs
+    into "ProyectoWeb/lib"
+}
