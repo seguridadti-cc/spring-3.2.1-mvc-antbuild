@@ -22,15 +22,19 @@ public class SimpleProductManager implements ProductManager {
 		return productDAO.getProductList();        
     }
 
-	public void increasePrice(int percentage) {
-		List<Product> products = productDAO.getProductList();
-		for (Product product : products) {
-			double newPrice = product.getPrice().doubleValue() * 
-					(100 + percentage)/100;
-			product.setPrice(newPrice);
-			this.productDAO.updateProduct(product);
-		}
-	}
+        public void increasePrice(int percentage) {
+                List<Product> products = productDAO.getProductList();
+                for (Product product : products) {
+                        double oldPrice = product.getPrice().doubleValue();
+                        double newPrice = oldPrice * (100 + percentage) / 100;
+                        logger.info("Increasing price for product '" +
+                                        product.getDescription() +
+                                        "' (id=" + product.getId() +
+                                        ") from " + oldPrice + " to " + newPrice);
+                        product.setPrice(newPrice);
+                        this.productDAO.updateProduct(product);
+                }
+        }
 
 	public ProductDao getProductDAO() {
 		return this.productDAO;
