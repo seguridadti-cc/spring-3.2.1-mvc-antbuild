@@ -350,12 +350,12 @@
 		<delete dir="${testbuild.dir}"/>
 		<mkdir dir="${testbuild.dir}"/>
 		<copy  todir="${testbuild.dir}">
-			<fileset dir="${resources.dir}">
-				<include name="*.properties"/>
-				<exclude name="log4j.properties"/>
-			</fileset>			
-		</copy>	
-		<copy file="${test.resources}/log4j.properties" todir="${testbuild.dir}"/>
+                        <fileset dir="${resources.dir}">
+                                <include name="*.properties"/>
+                                <exclude name="log4j2.properties"/>
+                        </fileset>
+                </copy>
+                <copy file="${test.resources}/log4j2.properties" todir="${testbuild.dir}"/>
 		<copy file="${config.dir}/test-context.xml" todir="${testbuild.dir}"/>
 		<javac destdir="${testbuild.dir}" source="1.8" target="1.8" debug="true"
             deprecation="false" optimize="false" failonerror="true">
