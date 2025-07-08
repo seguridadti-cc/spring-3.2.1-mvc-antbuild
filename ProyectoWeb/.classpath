@@ -12,7 +12,9 @@
 	<classpathentry kind="lib" path="lib/hsqldb-2.3.2.jar"/>
 	<classpathentry kind="lib" path="lib/jstl-1.2.jar"/>
 	<classpathentry kind="lib" path="lib/junit-4.11.jar"/>
-	<classpathentry kind="lib" path="lib/log4j-1.2.17.jar"/>
+       <classpathentry kind="lib" path="lib/log4j-api-2.24.3.jar"/>
+       <classpathentry kind="lib" path="lib/log4j-core-2.24.3.jar"/>
+       <classpathentry kind="lib" path="lib/log4j-jcl-2.24.3.jar"/>
 	<classpathentry kind="lib" path="lib/spring-aop-3.2.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="lib/spring-aspects-3.2.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="lib/spring-beans-3.2.1.RELEASE.jar"/>
