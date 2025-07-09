@@ -30,11 +30,11 @@ public class PriceIncreaseValidator implements Validator {
             logger.info("Validating with " + pi + ": " + pi.getPercentage());
             if (pi.getPercentage() > maxPercentage) {
                 errors.rejectValue("percentage", "error.too-high",
-                    new Object[] {new Integer(maxPercentage)}, "Value too high.");
+                    new Object[] {Integer.valueOf(maxPercentage)}, "Value too high.");
             }
             if (pi.getPercentage() <= minPercentage) {
                 errors.rejectValue("percentage", "error.too-low",
-                    new Object[] {new Integer(minPercentage)}, "Value too low.");
+                    new Object[] {Integer.valueOf(minPercentage)}, "Value too low.");
             }
         }
     }

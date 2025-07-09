@@ -316,7 +316,7 @@
 -->
 
         <target name="resolve">
-                <exec executable="gradle">
+                <exec executable="gradle" dir="..">
                         <arg value="copyDependencies"/>
                 </exec>
         </target>
